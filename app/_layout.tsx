@@ -1,69 +1,86 @@
-import '~/global.css';
+import '~/global.css'
 
-import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { Platform } from 'react-native';
-import { NAV_THEME } from '~/lib/constants';
-import { useColorScheme } from '~/lib/useColorScheme';
-import { PortalHost } from '@rn-primitives/portal';
-import { ThemeToggle } from '~/components/ThemeToggle';
-import { setAndroidNavigationBar } from '~/lib/android-navigation-bar';
+import {
+  DarkTheme,
+  DefaultTheme,
+  Theme,
+  ThemeProvider,
+} from '@react-navigation/native'
+import { Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
+import * as React from 'react'
+import { Platform, TouchableOpacity } from 'react-native'
+import { NAV_THEME } from '~/lib/constants'
+import { useColorScheme } from '~/lib/useColorScheme'
+import { PortalHost } from '@rn-primitives/portal'
+import { ThemeToggle } from '~/components/ThemeToggle'
+import { setAndroidNavigationBar } from '~/lib/android-navigation-bar'
+import { AlignLeft } from 'lucide-react-native'
+import { Drawer } from '~/components/ui/drawer'
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
   colors: NAV_THEME.light,
-};
+}
 const DARK_THEME: Theme = {
   ...DarkTheme,
   colors: NAV_THEME.dark,
-};
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+}
 
 export default function RootLayout() {
-  const hasMounted = React.useRef(false);
-  const { colorScheme, isDarkColorScheme } = useColorScheme();
-  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const hasMounted = React.useRef(false)
+  const { colorScheme, isDarkColorScheme } = useColorScheme()
+  const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen)
+  }
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {
-      return;
+      return
     }
 
     if (Platform.OS === 'web') {
-      // Adds the background color to the html element to prevent white background on overscroll.
-      document.documentElement.classList.add('bg-background');
+      document.documentElement.classList.add('bg-background')
     }
-    setAndroidNavigationBar(colorScheme);
-    setIsColorSchemeLoaded(true);
-    hasMounted.current = true;
-  }, []);
+    setAndroidNavigationBar(colorScheme)
+    setIsColorSchemeLoaded(true)
+    hasMounted.current = true
+  }, [])
 
   if (!isColorSchemeLoaded) {
-    return null;
+    return null
   }
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-      <Stack>
-        <Stack.Screen
-          name='index'
-          options={{
-            title: 'Starter Base',
-            headerRight: () => <ThemeToggle />,
-          }}
-        />
-      </Stack>
+
+      <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer}>
+        <Stack>
+          <Stack.Screen
+            name='index'
+            options={{
+              headerTitle: '',
+              headerRight: () => <ThemeToggle />,
+              headerLeft: () => (
+                <TouchableOpacity onPress={toggleDrawer} className='p-2'>
+                  <AlignLeft color='#000' size={24} />
+                </TouchableOpacity>
+              ),
+            }}
+          />
+        </Stack>
+      </Drawer>
+
       <PortalHost />
     </ThemeProvider>
-  );
+  )
 }
 
 const useIsomorphicLayoutEffect =
-  Platform.OS === 'web' && typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+  Platform.OS === 'web' && typeof window === 'undefined'
+    ? React.useEffect
+    : React.useLayoutEffect

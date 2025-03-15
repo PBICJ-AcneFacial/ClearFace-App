@@ -22,6 +22,10 @@ export function UploadPhotoButton() {
     }
   }
 
+  async function uploadImage() {
+    
+  }
+
   return (
     <View className='flex bg-gray-900 itens-center justify-center rounded-3xl'>
       {image && (
@@ -37,7 +41,7 @@ export function UploadPhotoButton() {
         className='flex flex-row justify-between bg-gray-900 px-4 py-3 rounded-3xl'
       >
         <Text className='text-zinc-50'>
-          {image ? image : 'Adicionar Imagem'}
+          {image ? image.split('/').pop() : 'Adicionar Imagem'}
         </Text>
         <ImageUp color='#fff' />
       </TouchableOpacity>

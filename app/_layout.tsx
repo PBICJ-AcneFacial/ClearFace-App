@@ -17,6 +17,7 @@ import { ThemeToggle } from '~/components/ThemeToggle'
 import { setAndroidNavigationBar } from '~/lib/android-navigation-bar'
 import { AlignLeft } from 'lucide-react-native'
 import { Drawer } from '~/components/ui/drawer'
+import { NewConsultationButton } from '~/components/new-consultation-button'
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -61,10 +62,10 @@ export default function RootLayout() {
       <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer}>
         <Stack>
           <Stack.Screen
-            name='index'
+            name='[id]'
             options={{
               headerTitle: '',
-              headerRight: () => <ThemeToggle />,
+              headerRight: () => <NewConsultationButton />,
               headerLeft: () => (
                 <TouchableOpacity onPress={toggleDrawer} className='p-2'>
                   <AlignLeft color='#000' size={24} />

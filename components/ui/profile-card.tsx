@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import Animated, { FadeIn } from 'react-native-reanimated'
 import { Button } from '~/components/ui/button'
 import {
@@ -20,11 +21,16 @@ export function ProfileCard() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>
-          <Text>Open</Text>
-        </Button>
+        <TouchableOpacity>
+          <View className='flex-row items-center border-t border-gray-300 pt-4'>
+            <View className='w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center'>
+              <Text className='text-white font-bold'>IH</Text>
+            </View>
+            <Text className='ml-3 text-sm font-bold'>Ismael Henrique</Text>
+          </View>
+        </TouchableOpacity>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-64 native:w-72'>
+      <DropdownMenuContent className='w-64 native:w-72 native:mb-80' align='center'>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -36,7 +42,7 @@ export function ProfileCard() {
               <Text>Invite users</Text>
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              <Animated.View entering={FadeIn.duration(200)}>
+              <Animated.View entering={FadeIn.duration(300)}>
                 <DropdownMenuItem>
                   <Text>Email</Text>
                 </DropdownMenuItem>

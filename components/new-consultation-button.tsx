@@ -4,7 +4,7 @@ import { Text, TouchableOpacity } from 'react-native'
 
 export function NewConsultationButton() {
   function redirectToNewConsullationScreen() {
-    router.navigate('/')
+    router.navigate('../1')
   }
 
   return (

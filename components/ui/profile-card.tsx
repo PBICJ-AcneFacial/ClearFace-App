@@ -1,19 +1,11 @@
+import { router } from 'expo-router'
 import * as React from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
-import { Button } from '~/components/ui/button'
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
+  DropdownMenuContent, DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuSeparator, DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu'
 import { Text } from '~/components/ui/text'
 
@@ -30,51 +22,24 @@ export function ProfileCard() {
           </View>
         </TouchableOpacity>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-64 native:w-72 native:mb-80' align='center'>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <Text>Team</Text>
-          </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <Text>Invite users</Text>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              <Animated.View entering={FadeIn.duration(300)}>
-                <DropdownMenuItem>
-                  <Text>Email</Text>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Text>Message</Text>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Text>More...</Text>
-                </DropdownMenuItem>
-              </Animated.View>
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
-          <DropdownMenuItem>
-            <Text>New Team</Text>
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+      <DropdownMenuContent
+        className='w-64 native:w-72 native:mb-80'
+        align='start'
+        side='top'
+      >
+        <DropdownMenuLabel>ismael.henrique.dev@gmail.com</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Text>GitHub</Text>
+          <Text>Alterar email ou senha</Text>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Text>Support</Text>
+          <Text>Documentação</Text>
         </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <Text>API</Text>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
         <DropdownMenuItem>
+          <Text>Overview</Text>
+        </DropdownMenuItem>
+        <DropdownMenuItem onPress={() => router.navigate('/(auth)/login')}>
           <Text>Log out</Text>
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
